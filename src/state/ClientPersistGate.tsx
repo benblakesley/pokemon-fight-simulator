@@ -1,7 +1,7 @@
 "use client";
 
 import { persistor } from "./store";
-import { ReactNode, useEffect } from "react";
+import { ReactNode } from "react";
 import { PersistGate } from "redux-persist/integration/react";
 
 

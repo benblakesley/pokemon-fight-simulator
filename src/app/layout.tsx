@@ -1,12 +1,9 @@
 'use client';
 
-import type { Metadata } from "next";
 import { Geist, Geist_Mono } from "next/font/google";
 import "./globals.css";
 import { ClientProvider } from "@/state/ClientProvider";
 import { GameOverModal } from "@/components/GameOverModal";
-import { PersistGate } from "redux-persist/integration/react";
-import { persistor } from "@/state/store";
 import { ClientPersistGate } from "@/state/ClientPersistGate";
 
 const geistSans = Geist({
