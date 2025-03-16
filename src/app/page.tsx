@@ -17,8 +17,6 @@ export default function FightPage()
 
     const pokeService = PokeService.getInstance();
 
-    const count = useRef(0);
-
     useEffect(() => 
     {
         const setInitFightData = async () =>
@@ -33,8 +31,6 @@ export default function FightPage()
             dispatch(setCurrentScore(0));
         }
 
-
-        count.current++
         setInitFightData();
     }, []);
 
