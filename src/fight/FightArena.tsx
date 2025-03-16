@@ -12,6 +12,7 @@ import { getFightWinner } from "../helpers.ts/getFightWinner";
 import { PokeService } from "@/api/PokeService";
 import { setHighScore } from "@/state/reducers/playerSlice";
 import { openModal } from "@/state/reducers/gameOverModalSlice";
+import { PokemonSelectButton } from "@/components/PokemonSelectButton";
 
 interface FightArenaProps
 {
@@ -122,12 +123,8 @@ export function FightArena({pokemonA, pokemonB}: FightArenaProps)
                         PICK YOUR WINNER!
                     </Typography>
                     <Box>
-                        <Button onClick={() => onPokemonSelected(pokemonB)} sx={{color: "#FFFF00", fontSize: "1.2em"}}>
-                            {pokemonB.name}
-                        </Button>
-                        <Button onClick={() => onPokemonSelected(pokemonA)} sx={{color: "#FFFF00", fontSize: "1.2em"}}>
-                            {pokemonA.name}
-                        </Button>
+                        <PokemonSelectButton onClick={() => onPokemonSelected(pokemonB)} pokemon={pokemonB}/>
+                        <PokemonSelectButton onClick={() => onPokemonSelected(pokemonA)} pokemon={pokemonA}/>
                     </Box>
                     <Typography sx={{color: "#FFFFFF", fontWeight: 600, fontSize: "1.5em"}}>
                         Current Score: {progressState.currentScore}
