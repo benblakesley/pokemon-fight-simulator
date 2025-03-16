@@ -8,9 +8,9 @@ import { persistReducer, persistStore } from 'redux-persist';
 
 // Persist configuration
 const persistConfig = {
-  key: "root", // Storage key
-  storage, // Use localStorage
-  whitelist: ["player"], // Only persist the "player" reducer
+  key: "root",
+  storage,
+  whitelist: ["player"],
 };
 
 // Combine all reducers

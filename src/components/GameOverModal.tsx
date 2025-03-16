@@ -33,16 +33,9 @@ export function GameOverModal()
                         Game Over
                     </Typography>
                     <Box>
-                        <Link href="/fight">
-                            <Button onClick={() => dispatch(closeModal())}>
-                                Play Again
-                            </Button>
-                        </Link>
-                        <Link href="/">
-                            <Button onClick={() => dispatch(closeModal())}>
-                                Home
-                            </Button>
-                        </Link>
+                        <Button onClick={() => dispatch(closeModal())}>
+                            Play Again
+                        </Button>
                     </Box>
                 </Box>
             </Modal>

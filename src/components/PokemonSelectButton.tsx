@@ -10,7 +10,7 @@ interface PokemonSelectButtonProps
 export function PokemonSelectButton({onClick, pokemon}: PokemonSelectButtonProps)
 {
     return (
-        <Button onClick={onClick} sx={{color: "#FFFF00", fontSize: "1.2em"}}>
+        <Button onClick={onClick} sx={{color: "#FFFF00", fontSize: "1.2em", fontWeight: 600}}>
                 {pokemon.name}
         </Button>
     )

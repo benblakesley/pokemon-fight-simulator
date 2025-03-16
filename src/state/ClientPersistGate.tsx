@@ -12,7 +12,7 @@ interface ClientProviderProps {
 export function ClientPersistGate({ children }: ClientProviderProps)
 {      
   return (
-    <PersistGate loading={<p>Loading Redux...</p>} persistor={persistor}>
+    <PersistGate loading={null} persistor={persistor}>
       {children}
     </PersistGate>
   );

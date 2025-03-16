@@ -123,8 +123,8 @@ export function FightArena({pokemonA, pokemonB}: FightArenaProps)
                         PICK YOUR WINNER!
                     </Typography>
                     <Box>
-                        <PokemonSelectButton onClick={() => onPokemonSelected(pokemonB)} pokemon={pokemonB}/>
                         <PokemonSelectButton onClick={() => onPokemonSelected(pokemonA)} pokemon={pokemonA}/>
+                        <PokemonSelectButton onClick={() => onPokemonSelected(pokemonB)} pokemon={pokemonB}/>
                     </Box>
                     <Typography sx={{color: "#FFFFFF", fontWeight: 600, fontSize: "1.5em"}}>
                         Current Score: {progressState.currentScore}
