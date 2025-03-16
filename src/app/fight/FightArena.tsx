@@ -118,21 +118,21 @@ export function FightArena({pokemonA, pokemonB}: FightArenaProps)
                     flexDirection: "column",
                     alignItems: "center"
                 }}>
-                    <Typography>
+                    <Typography sx={{color: "#FFFFFF", fontWeight: 800, fontSize: "2em"}}>
                         PICK YOUR WINNER!
                     </Typography>
                     <Box>
-                        <Button onClick={() => onPokemonSelected(pokemonB)}>
+                        <Button onClick={() => onPokemonSelected(pokemonB)} sx={{color: "#FFFF00", fontSize: "1.2em"}}>
                             {pokemonB.name}
                         </Button>
-                        <Button onClick={() => onPokemonSelected(pokemonA)}>
+                        <Button onClick={() => onPokemonSelected(pokemonA)} sx={{color: "#FFFF00", fontSize: "1.2em"}}>
                             {pokemonA.name}
                         </Button>
                     </Box>
-                    <Typography>
+                    <Typography sx={{color: "#FFFFFF", fontWeight: 600, fontSize: "1.5em"}}>
                         Current Score: {progressState.currentScore}
                     </Typography>
-                    <Typography>
+                    <Typography sx={{color: "#FFFFFF", fontWeight: 500, fontSize: "1.2em"}}>
                         High Score: {highScore}
                     </Typography>
                 </Box>
