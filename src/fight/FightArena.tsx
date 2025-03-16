@@ -1,7 +1,7 @@
 'use client';
 
 import { IPokemon } from "@/models/IPokemon";
-import { Box, Button, Fade, Typography, useMediaQuery, useTheme } from "@mui/material";
+import { Box, Fade, Typography, useMediaQuery, useTheme } from "@mui/material";
 import { useEffect, useState } from "react";
 import { TopFightingPokemon } from "./TopFightingPokemon";
 import { BottomFightingPokemon } from "./BottomFightingPokemon";

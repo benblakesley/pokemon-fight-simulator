@@ -4,7 +4,7 @@ import { PokeService } from "@/api/PokeService";
 import { useAppDispatch, useAppSelector } from "@/state/hooks";
 import { setCurrentPokemon, setCurrentScore, setGameInProgress } from "@/state/reducers/progressSlice";
 import { Box } from "@mui/material";
-import { useEffect, useRef } from "react";
+import { useEffect } from "react";
 import { FightArena } from "../fight/FightArena";
 
 export default function FightPage()
