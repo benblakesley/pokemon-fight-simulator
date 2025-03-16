@@ -15,9 +15,10 @@ interface TopFightingPokemonProps
     pokemon: IPokemon;
     currentState: FightStates;
     enterTime: number;
+    visible: boolean;
 }
 
-export function TopFightingPokemon({pokemon, currentState, enterTime}: TopFightingPokemonProps)
+export function TopFightingPokemon({pokemon, currentState, enterTime, visible}: TopFightingPokemonProps)
 {
     const animate = TopFightingPokemonAnimations[currentState];
 
@@ -31,6 +32,7 @@ export function TopFightingPokemon({pokemon, currentState, enterTime}: TopFighti
             direction="left"
             img={pokemon.sprites.front_default}
             customSx={sx}
+            visible={visible}
         />
     )
 }

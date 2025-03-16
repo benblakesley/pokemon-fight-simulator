@@ -15,9 +15,10 @@ interface BottomFightingPokemonProps
     pokemon: IPokemon;
     currentState: FightStates;
     enterTime: number;
+    visible: boolean;
 }
 
-export function BottomFightingPokemon({pokemon, currentState, enterTime}: BottomFightingPokemonProps)
+export function BottomFightingPokemon({pokemon, currentState, enterTime, visible}: BottomFightingPokemonProps)
 {
     const animate = BottomFightingPokemonAnimations[currentState];
 
@@ -29,6 +30,7 @@ export function BottomFightingPokemon({pokemon, currentState, enterTime}: Bottom
             animate={animate}
             direction="right"
             img={pokemon.sprites.back_default}
+            visible={visible}
         />
     )
 }

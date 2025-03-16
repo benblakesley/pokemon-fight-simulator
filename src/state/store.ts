@@ -3,13 +3,15 @@ import { configureStore } from '@reduxjs/toolkit';
 import progressReducer from './reducers/progressSlice';
 import playerReducer from './reducers/playerSlice';
 import fightReducer from './reducers/fightSlice';
+import modalReducer from './reducers/gameOverModalSlice';
 
 // Create the store
 const store = configureStore({
   reducer: {
     progress: progressReducer,
     player: playerReducer,
-    fight: fightReducer
+    fight: fightReducer,
+    modal: modalReducer
   },
 });
 

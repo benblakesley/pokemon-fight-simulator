@@ -11,6 +11,7 @@ import { setCurrentPokemon, setCurrentScore, setSelectedPokemon } from "@/state/
 import { getFightWinner } from "../helpers.ts/getFightWinner";
 import { PokeService } from "@/api/PokeService";
 import { setHighScore } from "@/state/reducers/playerSlice";
+import { openModal } from "@/state/reducers/gameOverModalSlice";
 
 interface FightArenaProps
 {
@@ -27,6 +28,8 @@ export function FightArena({pokemonA, pokemonB}: FightArenaProps)
     const {highScore} = useAppSelector(state => state.player);
     const [showButtons, setShowButtons] = useState<boolean>(false);
     const pokeService = PokeService.getInstance();
+
+    const [showFightingPokemon, setShowFightingPokemon] = useState<boolean>(true)
     
     const enterTime = 1500;
 
@@ -62,11 +65,19 @@ export function FightArena({pokemonA, pokemonB}: FightArenaProps)
                 dispatch(setCurrentPokemon({pokemonA: pokeA, pokemonB: pokeB}));
             }
 
-            
             setFightData();
+
+            setShowFightingPokemon(false);
+            setShowFightingPokemon(true);
+            
             if(won && currentScore >= highScore)
             {
                 dispatch(setHighScore(currentScore + 1));
+            }
+
+            if(!won)
+            {
+                dispatch(openModal())
             }
             dispatch(setCurrentScore( won ? currentScore + 1 : 0))
           }, 2500);
@@ -92,13 +103,18 @@ export function FightArena({pokemonA, pokemonB}: FightArenaProps)
             <Box sx={{
                 display: "flex",
                 flexDirection: "column",
-                width: 600
+                width: 600,
+                height: 600
             }}>
-                <TopFightingPokemon pokemon={pokemonB} enterTime={enterTime} currentState={fightState}/>
-                <BottomFightingPokemon pokemon={pokemonA} enterTime={enterTime} currentState={fightState}/>
+                <TopFightingPokemon pokemon={pokemonB} enterTime={enterTime} currentState={fightState} visible={showFightingPokemon}/>
+                <BottomFightingPokemon pokemon={pokemonA} enterTime={enterTime} currentState={fightState} visible={showFightingPokemon}/>
             </Box>
             <Fade in={showButtons && fightState === FightStates.idle} mountOnEnter unmountOnExit timeout={300}>
-                <Box>
+                <Box sx={{
+                    display: "flex",
+                    flexDirection: "column",
+                    alignItems: "center"
+                }}>
                     <Typography>
                         PICK YOUR WINNER!
                     </Typography>
