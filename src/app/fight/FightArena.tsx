@@ -94,22 +94,20 @@ export function FightArena({pokemonA, pokemonB}: FightArenaProps)
     }
 
     return(
-        <Container sx={{
+        <Box sx={{
             display: "flex",
             justifyContent: "center",
             flexDirection: "column",
-            alignItems: "center"
-        }}>
-            <Box sx={{
-                display: "flex",
-                flexDirection: "column",
-                width: 600,
-                height: 600
-            }}>
-                <TopFightingPokemon pokemon={pokemonB} enterTime={enterTime} currentState={fightState} visible={showFightingPokemon}/>
-                <BottomFightingPokemon pokemon={pokemonA} enterTime={enterTime} currentState={fightState} visible={showFightingPokemon}/>
-            </Box>
-            <Fade in={showButtons && fightState === FightStates.idle} mountOnEnter unmountOnExit timeout={300}>
+            alignItems: "center",
+            backgroundImage: 'url(/fightArena.jpg)',
+            backgroundSize: 'cover',
+            backgroundPosition: 'center center',
+            backgroundRepeat: 'no-repeat',
+            height: '100vh',  // Set the height to 100vh or any specific value
+            width: '100%',    // Ensure it covers the entire width
+          }}
+          >
+            <Fade in={showButtons && fightState === FightStates.idle} timeout={300}>
                 <Box sx={{
                     display: "flex",
                     flexDirection: "column",
@@ -134,6 +132,16 @@ export function FightArena({pokemonA, pokemonB}: FightArenaProps)
                     </Typography>
                 </Box>
             </Fade>
-        </Container>
+
+            <Box sx={{
+                display: "flex",
+                flexDirection: "column",
+                width: 600,
+                height: 600
+            }}>
+                <TopFightingPokemon pokemon={pokemonB} enterTime={enterTime} currentState={fightState} visible={showFightingPokemon}/>
+                <BottomFightingPokemon pokemon={pokemonA} enterTime={enterTime} currentState={fightState} visible={showFightingPokemon}/>
+            </Box>
+        </Box>
     )
 }

@@ -3,7 +3,7 @@
 import { PokeService } from "@/api/PokeService";
 import { useAppDispatch, useAppSelector } from "@/state/hooks";
 import { setCurrentPokemon, setCurrentScore, setGameInProgress } from "@/state/reducers/progressSlice";
-import { Container } from "@mui/material";
+import { Box, Container } from "@mui/material";
 import { useEffect, useRef } from "react";
 import { FightArena } from "./FightArena";
 
@@ -39,8 +39,8 @@ export default function FightPage()
     }, []);
 
     return(
-        <Container>
+        <Box>
             {!!pokeA && !!pokeB && <FightArena pokemonA={pokeA} pokemonB={pokeB}/>}
-        </Container>
+        </Box>
     )
 }
