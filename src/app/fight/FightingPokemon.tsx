@@ -15,6 +15,7 @@ interface FightingPokemonProps
     direction: "left" | "right";
     customSx?: SxProps<Theme>;
     visible: boolean;
+    size: number;
 }
 
 export const BaseFightingPokemonAnimations: Omit<Record<FightStates, AnimationTypeAndDuration>, FightStates.fighting> = 
@@ -30,10 +31,10 @@ export interface AnimationTypeAndDuration
     duration: number;
 }
 
-export function FightingPokemon({pokemon, enterTime, animate, img, customSx, direction, visible}: FightingPokemonProps)
+export function FightingPokemon({pokemon, enterTime, animate, img, customSx, direction, visible, size}: FightingPokemonProps)
 {
-    const sx = customSx || { width: 300};
-    
+    const sx = customSx || { width: size};
+
     return (
         <Slide direction={direction} key={pokemon.name} in={visible} mountOnEnter unmountOnExit timeout={{ enter: enterTime, exit: enterTime }} >
             <Box

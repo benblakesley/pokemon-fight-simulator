@@ -1,23 +1,44 @@
-// src/store.ts
-import { configureStore } from '@reduxjs/toolkit';
+import { combineReducers, configureStore } from '@reduxjs/toolkit';
 import progressReducer from './reducers/progressSlice';
 import playerReducer from './reducers/playerSlice';
 import fightReducer from './reducers/fightSlice';
 import modalReducer from './reducers/gameOverModalSlice';
+import storage from 'redux-persist/lib/storage';
+import { persistReducer, persistStore } from 'redux-persist';
 
-// Create the store
-const store = configureStore({
-  reducer: {
-    progress: progressReducer,
-    player: playerReducer,
-    fight: fightReducer,
-    modal: modalReducer
-  },
+// Persist configuration
+const persistConfig = {
+  key: "root", // Storage key
+  storage, // Use localStorage
+  whitelist: ["player"], // Only persist the "player" reducer
+};
+
+// Combine all reducers
+const rootReducer = combineReducers({
+  progress: progressReducer,
+  player: playerReducer,
+  fight: fightReducer,
+  modal: modalReducer,
 });
 
+// Create persisted reducer
+const persistedReducer = persistReducer(persistConfig, rootReducer);
+
+// Create the store with the persisted reducer
+const store = configureStore({
+  reducer: persistedReducer,
+  middleware: (getDefaultMiddleware) =>
+    getDefaultMiddleware({
+      serializableCheck: false, // Required for Redux Persist
+    }),
+});
+
+// Create persistor for Redux Persist
+export const persistor = persistStore(store);
+
+// Export store
 export default store;
 
 // Infer the `RootState` and `AppDispatch` types from the store itself
 export type RootState = ReturnType<typeof store.getState>;
-// Inferred type: {posts: PostsState, comments: CommentsState, users: UsersState}
 export type AppDispatch = typeof store.dispatch;

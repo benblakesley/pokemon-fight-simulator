@@ -4,11 +4,6 @@ import { IPokemon } from "@/models/IPokemon";
 import { AnimationTypeAndDuration, BaseFightingPokemonAnimations, FightingPokemon } from "./FightingPokemon"
 import { FightStates } from "@/state/reducers/fightSlice";
 
-export const BottomFightingPokemonAnimations: Record<FightStates, AnimationTypeAndDuration> = 
-{
-    ...BaseFightingPokemonAnimations,
-    [FightStates.fighting]: {animation: {x: [150, 140, 160, 140, 0], y: [-150, -140, -160, -140, 0], rotate: [0, 10, -10, 10, 0]}, duration: 1}
-}
 
 interface BottomFightingPokemonProps
 {
@@ -16,10 +11,19 @@ interface BottomFightingPokemonProps
     currentState: FightStates;
     enterTime: number;
     visible: boolean;
+    size: number;
 }
 
-export function BottomFightingPokemon({pokemon, currentState, enterTime, visible}: BottomFightingPokemonProps)
-{
+export function BottomFightingPokemon({pokemon, currentState, enterTime, visible, size}: BottomFightingPokemonProps)
+{   
+    
+    const initMove = size/2;
+    const BottomFightingPokemonAnimations: Record<FightStates, AnimationTypeAndDuration> = 
+    {
+        ...BaseFightingPokemonAnimations,
+        [FightStates.fighting]: {animation: {x: [initMove, initMove-10, initMove+10, initMove-10, 0], y: [-initMove, -initMove+10, -initMove-10, -initMove+10, 0], rotate: [0, 10, -10, 10, 0]}, duration: 1}
+    }
+
     const animate = BottomFightingPokemonAnimations[currentState];
 
     return (
@@ -31,6 +35,7 @@ export function BottomFightingPokemon({pokemon, currentState, enterTime, visible
             direction="right"
             img={pokemon.sprites.back_default}
             visible={visible}
+            size={size}
         />
     )
 }

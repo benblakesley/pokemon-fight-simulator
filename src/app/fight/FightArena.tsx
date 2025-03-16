@@ -1,7 +1,7 @@
 'use client';
 
 import { IPokemon } from "@/models/IPokemon";
-import { Box, Button, Fade, Typography } from "@mui/material";
+import { Box, Button, Fade, Typography, useMediaQuery, useTheme } from "@mui/material";
 import { useEffect, useState } from "react";
 import { TopFightingPokemon } from "./TopFightingPokemon";
 import { BottomFightingPokemon } from "./BottomFightingPokemon";
@@ -93,6 +93,11 @@ export function FightArena({pokemonA, pokemonB}: FightArenaProps)
         changeFightState(FightStates.fighting);
     }
 
+    const theme = useTheme();
+    const isSmallScreen = useMediaQuery(theme.breakpoints.down('sm'));
+
+    const fightArenaSize = isSmallScreen ? 400 : 600;
+
     return(
         <Box sx={{
             display: "flex",
@@ -103,8 +108,8 @@ export function FightArena({pokemonA, pokemonB}: FightArenaProps)
             backgroundSize: 'cover',
             backgroundPosition: 'center center',
             backgroundRepeat: 'no-repeat',
-            height: '100vh',  // Set the height to 100vh or any specific value
-            width: '100%',    // Ensure it covers the entire width
+            height: '100vh',
+            width: '100%',
           }}
           >
             <Fade in={showButtons && fightState === FightStates.idle} timeout={300}>
@@ -136,11 +141,11 @@ export function FightArena({pokemonA, pokemonB}: FightArenaProps)
             <Box sx={{
                 display: "flex",
                 flexDirection: "column",
-                width: 600,
-                height: 600
+                width: fightArenaSize,
+                height: fightArenaSize
             }}>
-                <TopFightingPokemon pokemon={pokemonB} enterTime={enterTime} currentState={fightState} visible={showFightingPokemon}/>
-                <BottomFightingPokemon pokemon={pokemonA} enterTime={enterTime} currentState={fightState} visible={showFightingPokemon}/>
+                <TopFightingPokemon pokemon={pokemonB} enterTime={enterTime} currentState={fightState} visible={showFightingPokemon} size={fightArenaSize/2}/>
+                <BottomFightingPokemon pokemon={pokemonA} enterTime={enterTime} currentState={fightState} visible={showFightingPokemon} size={fightArenaSize/2}/>
             </Box>
         </Box>
     )
