@@ -1,7 +1,7 @@
 'use client';
 
 import { IPokemon } from "@/models/IPokemon";
-import { AnimationType, AnimationTypeAndDuration, BaseFightingPokemonAnimations, FightingPokemon } from "./FightingPokemon"
+import { AnimationTypeAndDuration, BaseFightingPokemonAnimations, FightingPokemon } from "./FightingPokemon"
 import { FightStates } from "@/state/reducers/fightSlice";
 
 export const TopFightingPokemonAnimations: Record<FightStates, AnimationTypeAndDuration> = 

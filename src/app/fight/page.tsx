@@ -3,7 +3,7 @@
 import { PokeService } from "@/api/PokeService";
 import { useAppDispatch, useAppSelector } from "@/state/hooks";
 import { setCurrentPokemon, setCurrentScore, setGameInProgress } from "@/state/reducers/progressSlice";
-import { Box, Container } from "@mui/material";
+import { Box } from "@mui/material";
 import { useEffect, useRef } from "react";
 import { FightArena } from "./FightArena";
 
