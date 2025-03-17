@@ -7,7 +7,7 @@ import { TopFightingPokemon } from "./TopFightingPokemon";
 import { BottomFightingPokemon } from "./BottomFightingPokemon";
 import { useAppDispatch, useAppSelector } from "@/state/hooks";
 import { FightStates, setFightState } from "@/state/reducers/fightSlice";
-import { setCurrentPokemon, setCurrentScore, setSelectedPokemon } from "@/state/reducers/progressSlice";
+import { setCurrentPokemon, setCurrentScore, setLastGameTotalScore, setSelectedPokemon } from "@/state/reducers/progressSlice";
 import { getFightWinner } from "../helpers.ts/getFightWinner";
 import { PokeService } from "@/api/PokeService";
 import { setHighScore } from "@/state/reducers/playerSlice";
@@ -78,6 +78,7 @@ export function FightArena({pokemonA, pokemonB}: FightArenaProps)
 
             if(!won)
             {
+                dispatch(setLastGameTotalScore(currentScore))
                 dispatch(openModal())
             }
             dispatch(setCurrentScore( won ? currentScore + 1 : 0))

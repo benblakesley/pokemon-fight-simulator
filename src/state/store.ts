@@ -10,7 +10,7 @@ import { persistReducer, persistStore } from 'redux-persist';
 const persistConfig = {
   key: "root",
   storage,
-  whitelist: ["player"],
+  whitelist: ["player", "progress"],
 };
 
 // Combine all reducers
