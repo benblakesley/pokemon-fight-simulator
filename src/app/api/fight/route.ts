@@ -30,12 +30,10 @@ export async function POST(request: Request)
 
         const text = response.text();
 
-        console.log(text);
-
         return NextResponse.json({ result: text }, { status: 200 });
 
-    } catch (error: any) {
+    } catch (error: unknown) {
         console.error('Gemini API Error:', error);
-        return NextResponse.json({ error: error.message || 'Internal Server Error' }, { status: 500 });
+        return NextResponse.json({ error: error || 'Internal Server Error' }, { status: 500 });
     }
 }

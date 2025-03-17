@@ -8,7 +8,6 @@ import { BottomFightingPokemon } from "./BottomFightingPokemon";
 import { useAppDispatch, useAppSelector } from "@/state/hooks";
 import { FightStates, setFightState } from "@/state/reducers/fightSlice";
 import { setCurrentPokemon, setCurrentScore, setLastGameTotalScore, setSelectedPokemon, setWinnerReason } from "@/state/reducers/progressSlice";
-import { getFightWinner } from "../helpers.ts/getFightWinner";
 import { PokeProxy } from "@/app/api/PokeProxy";
 import { setHighScore } from "@/state/reducers/playerSlice";
 import { openModal } from "@/state/reducers/gameOverModalSlice";
