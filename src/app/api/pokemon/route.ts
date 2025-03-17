@@ -11,8 +11,8 @@ export async function GET(request: Request) {
 
         return new Response(JSON.stringify({pokemon: pokemon}), { status: 200 });
 
-    } catch (error) 
+    } catch
     {
-        return new Response("Error fetching Pokémon", { status: 500 });
+        return new Response("Error fetching Pokémon");
     }
   }
