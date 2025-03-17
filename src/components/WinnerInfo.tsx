@@ -45,7 +45,7 @@ export function WinnerInfo({popoverText}: WinnerInfoProps)
                     paper: {sx: {maxWidth: {md: "50%"}}
                 }}}
             >
-             <Typography sx={{ p: 2 }}>{popoverText}.</Typography>
+             <Typography sx={{ p: 2 }}>{popoverText}</Typography>
             </Popover>
         </>
     )
