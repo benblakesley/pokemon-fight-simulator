@@ -3,7 +3,6 @@
 import { useAppDispatch, useAppSelector } from "@/state/hooks";
 import { closeModal } from "@/state/reducers/gameOverModalSlice";
 import { Box, Button, Modal, Typography } from "@mui/material";
-import Link from "next/link";
 
 export function GameOverModal()
 {
