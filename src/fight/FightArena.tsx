@@ -117,12 +117,6 @@ export function FightArena({pokemonA, pokemonB}: FightArenaProps)
             justifyContent: "center",
             flexDirection: "column",
             alignItems: "center",
-            backgroundImage: 'url(/fightArena.jpg)',
-            backgroundSize: 'cover',
-            backgroundPosition: 'center center',
-            backgroundRepeat: 'no-repeat',
-            height: '100vh',
-            width: '100%',
           }}
           >
             <Fade in={showButtons && fightState === FightStates.idle} timeout={300}>

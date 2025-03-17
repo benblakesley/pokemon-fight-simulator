@@ -5,6 +5,7 @@ import "./globals.css";
 import { ClientProvider } from "@/state/ClientProvider";
 import { GameOverModal } from "@/components/GameOverModal";
 import { ClientPersistGate } from "@/state/ClientPersistGate";
+import { GlobalStyles } from "@mui/material";
 
 const geistSans = Geist({
   variable: "--font-geist-sans",
@@ -26,6 +27,19 @@ export default function RootLayout({
       <body className={`${geistSans.variable} ${geistMono.variable}`}>
           <ClientProvider>
             <ClientPersistGate>
+            <GlobalStyles
+              styles={{
+                body: {
+                  backgroundImage: "url('/fightArena.jpg')", // Change to your image path
+                  backgroundSize: "cover",
+                  backgroundPosition: "center",
+                  backgroundRepeat: "no-repeat",
+                  minHeight: "100vh",
+                  margin: 0,
+                  padding: 0,
+                },
+              }}
+            />
               {children}
             <GameOverModal/>
             </ClientPersistGate>
