@@ -13,6 +13,7 @@ import { setHighScore } from "@/state/reducers/playerSlice";
 import { openModal } from "@/state/reducers/gameOverModalSlice";
 import { PokemonSelectButton } from "@/components/PokemonSelectButton";
 import { FightProxy } from "@/app/api/FightProxy";
+import { WinnerInfo } from "@/components/WinnerInfo";
 
 interface FightArenaProps
 {
@@ -156,13 +157,7 @@ export function FightArena({pokemonA, pokemonB}: FightArenaProps)
                 <BottomFightingPokemon pokemon={pokemonA} enterTime={enterTime} currentState={fightState} visible={showFightingPokemon} size={fightArenaSize/2}/>
             </Box>
 
-            <Fade in={showButtons && fightState === FightStates.idle} timeout={300}>
-                <Box sx={{margin: {xs: "16px", md: "16px 128px"}}}>
-                    <Typography sx={{color: "#FFFFFF", fontWeight: 600, fontSize: {xs: "0.75em", md: "1em"}}}>
-                        {winnerReason}
-                    </Typography>
-                </Box>
-            </Fade>
+            <WinnerInfo popoverText={winnerReason}/>
         </Box>
     )
 }
