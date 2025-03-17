@@ -1,5 +1,11 @@
 import { IPokemon } from "@/models/IPokemon";
 
+interface FightWinner
+{
+    id: number,
+    reason: string
+}
+
 export class FightProxy
 {
     private static instance: FightProxy;
@@ -14,17 +20,26 @@ export class FightProxy
         return FightProxy.instance;
     }
 
-    public getFightWinnerId: (pokemonA: IPokemon, pokemonB: IPokemon) =>  Promise<number> = async (pokemonA: IPokemon, pokemonB: IPokemon) =>
+    public getFightWinner: (pokemonA: IPokemon, pokemonB: IPokemon) => Promise<FightWinner> = async (pokemonA: IPokemon, pokemonB: IPokemon) =>
     {
         const pokemonAName = pokemonA.name;
         const pokemonBName = pokemonB.name;
 
         const response = await fetch(`/api/fight?pokemonA=${pokemonAName}&pokemonB=${pokemonBName}`, {method: 'POST'});
 
-        const responseJson= await response.json();
+        const responseJson = await response.json();
 
-        const id = Number(responseJson.result);
+        let innerString = responseJson.result;
 
-        return id;
+        //Regex for formatting
+        innerString = innerString.replace(/\n$/, '');
+        innerString = innerString.replace(/(\w+):/g, '"$1":');
+
+        const innerObject = JSON.parse(innerString);
+
+        return {
+            id: innerObject.id,
+            reason: innerObject.reason
+        };
     }
 }

@@ -7,7 +7,7 @@ import { TopFightingPokemon } from "./TopFightingPokemon";
 import { BottomFightingPokemon } from "./BottomFightingPokemon";
 import { useAppDispatch, useAppSelector } from "@/state/hooks";
 import { FightStates, setFightState } from "@/state/reducers/fightSlice";
-import { setCurrentPokemon, setCurrentScore, setLastGameTotalScore, setSelectedPokemon } from "@/state/reducers/progressSlice";
+import { setCurrentPokemon, setCurrentScore, setLastGameTotalScore, setSelectedPokemon, setWinnerReason } from "@/state/reducers/progressSlice";
 import { getFightWinner } from "../helpers.ts/getFightWinner";
 import { PokeProxy } from "@/app/api/PokeProxy";
 import { setHighScore } from "@/state/reducers/playerSlice";
@@ -26,7 +26,7 @@ export function FightArena({pokemonA, pokemonB}: FightArenaProps)
     const {fightState} = useAppSelector(state => state.fight)
     const dispatch = useAppDispatch();
     const progressState = useAppSelector(state => state.progress);
-    const {currentScore} = progressState;
+    const {currentScore, winnerReason} = progressState;
     const {highScore} = useAppSelector(state => state.player);
     const [showButtons, setShowButtons] = useState<boolean>(false);
     const pokeProxy = PokeProxy.getInstance();
@@ -56,10 +56,9 @@ export function FightArena({pokemonA, pokemonB}: FightArenaProps)
 
             const handleWinner = async () => 
             {
-                const winnerId = await FightProxy.getInstance().getFightWinnerId(pokemonA, pokemonB);
+                const {id, reason} = await FightProxy.getInstance().getFightWinner(pokemonA, pokemonB);
 
-                const winner = await PokeProxy.getInstance().getPokemonById(winnerId);
-                
+                const winner = await PokeProxy.getInstance().getPokemonById(id);
                 const won = progressState.selectedPokemon?.name === winner.name;
 
                 if(won && currentScore >= highScore)
@@ -73,6 +72,7 @@ export function FightArena({pokemonA, pokemonB}: FightArenaProps)
                     dispatch(openModal())
                 }
 
+                dispatch(setWinnerReason(reason));
                 dispatch(setCurrentScore( won ? currentScore + 1 : 0))
             }
 
@@ -109,7 +109,7 @@ export function FightArena({pokemonA, pokemonB}: FightArenaProps)
     const theme = useTheme();
     const isSmallScreen = useMediaQuery(theme.breakpoints.down('sm'));
 
-    const fightArenaSize = isSmallScreen ? 400 : 600;
+    const fightArenaSize = isSmallScreen ? 300 : 500;
 
     return(
         <Box sx={{
@@ -156,6 +156,14 @@ export function FightArena({pokemonA, pokemonB}: FightArenaProps)
                 <TopFightingPokemon pokemon={pokemonB} enterTime={enterTime} currentState={fightState} visible={showFightingPokemon} size={fightArenaSize/2}/>
                 <BottomFightingPokemon pokemon={pokemonA} enterTime={enterTime} currentState={fightState} visible={showFightingPokemon} size={fightArenaSize/2}/>
             </Box>
+
+            <Fade in={showButtons && fightState === FightStates.idle} timeout={300}>
+                <Box sx={{margin: {xs: "16px", md: "16px 128px"}}}>
+                    <Typography sx={{color: "#FFFFFF", fontWeight: 600, fontSize: {xs: "0.75em", md: "1em"}}}>
+                        {winnerReason}
+                    </Typography>
+                </Box>
+            </Fade>
         </Box>
     )
 }

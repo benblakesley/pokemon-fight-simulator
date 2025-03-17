@@ -7,6 +7,7 @@ interface ProgressState
     currentPokemon: {pokemonA: IPokemon, pokemonB: IPokemon} | undefined;
     selectedPokemon: IPokemon | undefined;
     lastGameTotalScore: number;
+    winnerReason: string;
 };
 
 const initialState: ProgressState = 
@@ -14,7 +15,8 @@ const initialState: ProgressState =
     currentScore: 0,
     currentPokemon: undefined,
     selectedPokemon: undefined,
-    lastGameTotalScore: 0
+    lastGameTotalScore: 0,
+    winnerReason: ""
 };
 
 const progressSlice = createSlice({
@@ -42,8 +44,12 @@ const progressSlice = createSlice({
     {
         state.lastGameTotalScore = action.payload;
     },
+    setWinnerReason: (state: ProgressState, action: PayloadAction<string>) =>
+    {
+        state.winnerReason = action.payload;
+    },
   },
 });
 
-export const {setLastGameTotalScore, setCurrentScore, incrementCurrentScore, setCurrentPokemon, setSelectedPokemon} = progressSlice.actions;
+export const {setWinnerReason, setLastGameTotalScore, setCurrentScore, incrementCurrentScore, setCurrentPokemon, setSelectedPokemon} = progressSlice.actions;
 export default progressSlice.reducer;
