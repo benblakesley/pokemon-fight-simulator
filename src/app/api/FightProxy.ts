@@ -31,6 +31,11 @@ export class FightProxy
 
         let innerString = responseJson.result;
 
+        const firstBrace = innerString.indexOf('{');
+        const lastBrace = innerString.lastIndexOf('}');
+
+        innerString = innerString.substring(firstBrace, lastBrace + 1);
+
         //Regex for formatting
         innerString = innerString.replace(/\n$/, '');
         innerString = innerString.replace(/(\w+):/g, '"$1":');

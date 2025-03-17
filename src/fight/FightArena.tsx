@@ -117,6 +117,7 @@ export function FightArena({pokemonA, pokemonB}: FightArenaProps)
             justifyContent: "center",
             flexDirection: "column",
             alignItems: "center",
+            marginTop: "32px"
           }}
           >
             <Fade in={showButtons && fightState === FightStates.idle} timeout={300}>
