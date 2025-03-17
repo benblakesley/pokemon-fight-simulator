@@ -16,7 +16,7 @@ export class PokeProxy
 
     public getRandomPokemon: () =>  Promise<IPokemon> = async () =>
     {
-        const randomNumber = Math.floor(Math.random() * 151) + 1;
+        const randomNumber = Math.floor(Math.random() * 1025) + 1;
 
         const response = await fetch(`/api/pokemon?id=${randomNumber}`);
 
