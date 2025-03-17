@@ -1,3 +1,5 @@
+import { NextResponse } from "next/server";
+
 export async function GET(request: Request) {
     try 
     {  
@@ -9,10 +11,10 @@ export async function GET(request: Request) {
     
         const pokemon = await pokemonJson.json();
 
-        return new Response(JSON.stringify({pokemon: pokemon}), { status: 200 });
+        return new NextResponse(JSON.stringify({pokemon: pokemon}), { status: 200 });
 
     } catch
     {
-        return new Response("Error fetching Pokémon");
+        return new NextResponse("Error fetching Pokémon");
     }
   }

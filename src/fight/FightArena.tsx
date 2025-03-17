@@ -13,6 +13,7 @@ import { PokeProxy } from "@/app/api/PokeProxy";
 import { setHighScore } from "@/state/reducers/playerSlice";
 import { openModal } from "@/state/reducers/gameOverModalSlice";
 import { PokemonSelectButton } from "@/components/PokemonSelectButton";
+import { FightProxy } from "@/app/api/FightProxy";
 
 interface FightArenaProps
 {
@@ -53,8 +54,27 @@ export function FightArena({pokemonA, pokemonB}: FightArenaProps)
           const timeoutId = setTimeout(() => {
             changeFightState(FightStates.idle);
 
-            const winner = getFightWinner(pokemonA, pokemonB)
-            const won = progressState.selectedPokemon?.name === winner.name;
+            const handleWinner = async () => 
+            {
+                const winnerId = await FightProxy.getInstance().getFightWinnerId(pokemonA, pokemonB);
+
+                const winner = await PokeProxy.getInstance().getPokemonById(winnerId);
+                
+                const won = progressState.selectedPokemon?.name === winner.name;
+
+                if(won && currentScore >= highScore)
+                {
+                    dispatch(setHighScore(currentScore + 1));
+                }
+        
+                if(!won)
+                {
+                    dispatch(setLastGameTotalScore(currentScore))
+                    dispatch(openModal())
+                }
+
+                dispatch(setCurrentScore( won ? currentScore + 1 : 0))
+            }
 
             const setFightData = async () =>
             {
@@ -66,22 +86,13 @@ export function FightArena({pokemonA, pokemonB}: FightArenaProps)
                 dispatch(setCurrentPokemon({pokemonA: pokeA, pokemonB: pokeB}));
             }
 
+            handleWinner();
+
             setFightData();
 
             setShowFightingPokemon(false);
             setShowFightingPokemon(true);
             
-            if(won && currentScore >= highScore)
-            {
-                dispatch(setHighScore(currentScore + 1));
-            }
-
-            if(!won)
-            {
-                dispatch(setLastGameTotalScore(currentScore))
-                dispatch(openModal())
-            }
-            dispatch(setCurrentScore( won ? currentScore + 1 : 0))
           }, 2500);
 
           return () => clearTimeout(timeoutId);
