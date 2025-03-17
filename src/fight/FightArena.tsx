@@ -9,7 +9,7 @@ import { useAppDispatch, useAppSelector } from "@/state/hooks";
 import { FightStates, setFightState } from "@/state/reducers/fightSlice";
 import { setCurrentPokemon, setCurrentScore, setLastGameTotalScore, setSelectedPokemon } from "@/state/reducers/progressSlice";
 import { getFightWinner } from "../helpers.ts/getFightWinner";
-import { PokeService } from "@/api/PokeService";
+import { PokeProxy } from "@/app/api/PokeProxy";
 import { setHighScore } from "@/state/reducers/playerSlice";
 import { openModal } from "@/state/reducers/gameOverModalSlice";
 import { PokemonSelectButton } from "@/components/PokemonSelectButton";
@@ -28,7 +28,7 @@ export function FightArena({pokemonA, pokemonB}: FightArenaProps)
     const {currentScore} = progressState;
     const {highScore} = useAppSelector(state => state.player);
     const [showButtons, setShowButtons] = useState<boolean>(false);
-    const pokeService = PokeService.getInstance();
+    const pokeProxy = PokeProxy.getInstance();
 
     const [showFightingPokemon, setShowFightingPokemon] = useState<boolean>(true)
     
@@ -59,8 +59,8 @@ export function FightArena({pokemonA, pokemonB}: FightArenaProps)
             const setFightData = async () =>
             {
                 const [pokeA, pokeB] = await Promise.all([
-                    pokeService.getRandomPokemon(),
-                    pokeService.getRandomPokemon()
+                    pokeProxy.getRandomPokemon(),
+                    pokeProxy.getRandomPokemon()
                 ]);
     
                 dispatch(setCurrentPokemon({pokemonA: pokeA, pokemonB: pokeB}));

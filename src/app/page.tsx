@@ -1,6 +1,6 @@
 'use client';
 
-import { PokeService } from "@/api/PokeService";
+import { PokeProxy } from "@/app/api/PokeProxy";
 import { useAppDispatch, useAppSelector } from "@/state/hooks";
 import { setCurrentPokemon } from "@/state/reducers/progressSlice";
 import { Box } from "@mui/material";
@@ -15,15 +15,15 @@ export default function FightPage()
     const pokeA = currentPokemon?.pokemonA;
     const pokeB = currentPokemon?.pokemonB;
 
-    const pokeService = PokeService.getInstance();
+    const pokeProxy = PokeProxy.getInstance();
 
     useEffect(() => 
     {
         const setInitFightData = async () =>
         {
             const [pokeA, pokeB] = await Promise.all([
-                pokeService.getRandomPokemon(),
-                pokeService.getRandomPokemon()
+                pokeProxy.getRandomPokemon(),
+                pokeProxy.getRandomPokemon()
             ]);
 
             dispatch(setCurrentPokemon({pokemonA: pokeA, pokemonB: pokeB}));
