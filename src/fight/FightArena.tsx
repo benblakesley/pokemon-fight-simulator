@@ -51,7 +51,7 @@ export function FightArena({pokemonA, pokemonB}: FightArenaProps)
     useEffect(() => {
         if (fightState === FightStates.fighting) 
         {
-          const timeoutId = setTimeout(() => {
+          const timeoutId = setTimeout(async () => {
             changeFightState(FightStates.idle);
 
             const handleWinner = async () => 
@@ -86,9 +86,9 @@ export function FightArena({pokemonA, pokemonB}: FightArenaProps)
                 dispatch(setCurrentPokemon({pokemonA: pokeA, pokemonB: pokeB}));
             }
 
-            handleWinner();
+            await handleWinner();
 
-            setFightData();
+            await setFightData();
 
             setShowFightingPokemon(false);
             setShowFightingPokemon(true);
