@@ -13,9 +13,10 @@ interface TopFightingPokemonProps
     enterTime: number;
     visible: boolean;
     size: number;
+    onClick: () => void;
 }
 
-export function TopFightingPokemon({pokemon, currentState, enterTime, visible, size}: TopFightingPokemonProps)
+export function TopFightingPokemon({pokemon, currentState, enterTime, visible, size, onClick}: TopFightingPokemonProps)
 {
     const initMove = size/2;
 
@@ -39,6 +40,7 @@ export function TopFightingPokemon({pokemon, currentState, enterTime, visible, s
             customSx={sx}
             visible={visible}
             size={size}
+            onClick={onClick}
         />
     )
 }

@@ -12,9 +12,10 @@ interface BottomFightingPokemonProps
     enterTime: number;
     visible: boolean;
     size: number;
+    onClick: () => void;
 }
 
-export function BottomFightingPokemon({pokemon, currentState, enterTime, visible, size}: BottomFightingPokemonProps)
+export function BottomFightingPokemon({pokemon, currentState, enterTime, visible, size, onClick}: BottomFightingPokemonProps)
 {   
     
     const initMove = size/2;
@@ -36,6 +37,7 @@ export function BottomFightingPokemon({pokemon, currentState, enterTime, visible
             img={pokemon.sprites.back_default}
             visible={visible}
             size={size}
+            onClick={onClick}
         />
     )
 }

@@ -11,7 +11,6 @@ import { setCurrentPokemon, setCurrentScore, setLastGameTotalScore, setSelectedP
 import { PokeProxy } from "@/app/api/PokeProxy";
 import { setHighScore } from "@/state/reducers/playerSlice";
 import { openModal } from "@/state/reducers/gameOverModalSlice";
-import { PokemonSelectButton } from "@/components/PokemonSelectButton";
 import { FightProxy } from "@/app/api/FightProxy";
 import { WinnerInfo } from "@/components/WinnerInfo";
 
@@ -129,10 +128,6 @@ export function FightArena({pokemonA, pokemonB}: FightArenaProps)
                     <Typography sx={{color: "#FFFFFF", fontWeight: 800, fontSize: "2em"}}>
                         PICK YOUR WINNER!
                     </Typography>
-                    <Box>
-                        <PokemonSelectButton onClick={() => onPokemonSelected(pokemonA)} pokemon={pokemonA}/>
-                        <PokemonSelectButton onClick={() => onPokemonSelected(pokemonB)} pokemon={pokemonB}/>
-                    </Box>
                     <Typography sx={{color: "#FFFFFF", fontWeight: 600, fontSize: "1.5em"}}>
                         Current Score: {progressState.currentScore}
                     </Typography>
@@ -148,8 +143,8 @@ export function FightArena({pokemonA, pokemonB}: FightArenaProps)
                 width: fightArenaSize,
                 height: fightArenaSize
             }}>
-                <TopFightingPokemon pokemon={pokemonB} enterTime={enterTime} currentState={fightState} visible={showFightingPokemon} size={fightArenaSize/2}/>
-                <BottomFightingPokemon pokemon={pokemonA} enterTime={enterTime} currentState={fightState} visible={showFightingPokemon} size={fightArenaSize/2}/>
+                <TopFightingPokemon onClick={() => onPokemonSelected(pokemonB)} pokemon={pokemonB} enterTime={enterTime} currentState={fightState} visible={showFightingPokemon} size={fightArenaSize/2}/>
+                <BottomFightingPokemon onClick={() => onPokemonSelected(pokemonA)} pokemon={pokemonA} enterTime={enterTime} currentState={fightState} visible={showFightingPokemon} size={fightArenaSize/2}/>
             </Box>
 
             <WinnerInfo popoverText={winnerReason}/>

@@ -16,6 +16,7 @@ interface FightingPokemonProps
     customSx?: SxProps<Theme>;
     visible: boolean;
     size: number;
+    onClick: () => void;
 }
 
 export const BaseFightingPokemonAnimations: Omit<Record<FightStates, AnimationTypeAndDuration>, FightStates.fighting> = 
@@ -31,7 +32,7 @@ export interface AnimationTypeAndDuration
     duration: number;
 }
 
-export function FightingPokemon({pokemon, enterTime, animate, img, customSx, direction, visible, size}: FightingPokemonProps)
+export function FightingPokemon({pokemon, enterTime, animate, img, customSx, direction, visible, size, onClick}: FightingPokemonProps)
 {
     const sx = customSx || { width: size};
 
@@ -40,9 +41,10 @@ export function FightingPokemon({pokemon, enterTime, animate, img, customSx, dir
             <Box
                 component={motion.img}
                 src={img}
-                sx= {sx}
+                sx= {{...sx, cursor: "pointer"}}
                 animate={animate?.animation}
                 transition={{duration: animate?.duration}}
+                onClick={onClick}
             />
         </Slide>
     )
