@@ -29,7 +29,7 @@ export default function BattlePage()
             dispatch(setCurrentPokemon({pokemonA: pokeA, pokemonB: pokeB}));
         }
 
-        if(currentScore === 0)
+        if(currentScore === 0 && !currentPokemon)
         {
             setInitBattleData();
         }
