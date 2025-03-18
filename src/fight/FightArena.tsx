@@ -13,6 +13,7 @@ import { setHighScore } from "@/state/reducers/playerSlice";
 import { openModal } from "@/state/reducers/gameOverModalSlice";
 import { FightProxy } from "@/app/api/FightProxy";
 import { WinnerInfo } from "@/components/WinnerInfo";
+import { DecisionInfo } from "@/components/DecisionInfo";
 
 interface FightArenaProps
 {
@@ -128,6 +129,7 @@ export function FightArena({pokemonA, pokemonB}: FightArenaProps)
                     <Typography sx={{color: "#FFFFFF", fontWeight: 800, fontSize: "2em"}}>
                         PICK YOUR WINNER!
                     </Typography>
+                    <DecisionInfo/>
                     <Typography sx={{color: "#FFFFFF", fontWeight: 600, fontSize: "1.5em"}}>
                         Current Score: {progressState.currentScore}
                     </Typography>

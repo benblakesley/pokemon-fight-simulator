@@ -3,12 +3,7 @@
 import { Button, Popover, Typography } from "@mui/material";
 import { useState } from "react";
 
-interface WinnerInfoProps
-{
-    popoverText: string;
-}
-
-export function WinnerInfo({popoverText}: WinnerInfoProps)
+export function DecisionInfo()
 {
     const [anchorEl, setAnchorEl] = useState<HTMLButtonElement | null>(null);
 
@@ -21,12 +16,14 @@ export function WinnerInfo({popoverText}: WinnerInfoProps)
     };
   
     const open = Boolean(anchorEl);
-    const id = open ? 'winner-info-popover' : undefined;
+    const id = open ? 'decision-info-popover' : undefined;
+
+    const popoverText = "When a battle starts, we ask Google's Gemini who it thinks will win the battle. It often gives the correct answer with good reasoning, but sometimes it says something stupid like `charmander will easily beat squirtle because fire is super effective against water`. But this is all part of the fun.";
 
     return (
         <>
-            <Button aria-describedby={id} variant="contained" onClick={handleClick}>
-                How was the previous fight decided?
+            <Button sx={{margin: "16px 0"}} aria-describedby={id} variant="contained" onClick={handleClick}>
+                How are battles decided?
             </Button>
             <Popover
                 id={id}
@@ -34,7 +31,7 @@ export function WinnerInfo({popoverText}: WinnerInfoProps)
                 anchorEl={anchorEl}
                 onClose={handleClose}
                 anchorOrigin={{
-                    vertical: 'top',
+                    vertical: 'bottom',
                     horizontal: 'center',
                 }}
                 transformOrigin={{
@@ -45,7 +42,7 @@ export function WinnerInfo({popoverText}: WinnerInfoProps)
                     paper: {sx: {maxWidth: {md: "50%"}}
                 }}}
             >
-             <Typography sx={{ p: 2 }}>{!!popoverText ?  popoverText : 'No Previous Fight'}</Typography>
+             <Typography sx={{ p: 2 }}>{popoverText}</Typography>
             </Popover>
         </>
     )
