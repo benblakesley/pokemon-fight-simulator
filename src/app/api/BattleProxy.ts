@@ -1,31 +1,31 @@
 import { IPokemon } from "@/models/IPokemon";
 
-interface FightWinner
+interface BattleWinner
 {
     id: number,
     reason: string
 }
 
-export class FightProxy
+export class BattleProxy
 {
-    private static instance: FightProxy;
+    private static instance: BattleProxy;
 
     private constructor(){}
 
-    public static getInstance(): FightProxy
+    public static getInstance(): BattleProxy
     {
-        if (!FightProxy.instance) {
-            FightProxy.instance = new FightProxy();
+        if (!BattleProxy.instance) {
+            BattleProxy.instance = new BattleProxy();
         }
-        return FightProxy.instance;
+        return BattleProxy.instance;
     }
 
-    public getFightWinner: (pokemonA: IPokemon, pokemonB: IPokemon) => Promise<FightWinner> = async (pokemonA: IPokemon, pokemonB: IPokemon) =>
+    public getBattleWinner: (pokemonA: IPokemon, pokemonB: IPokemon) => Promise<BattleWinner> = async (pokemonA: IPokemon, pokemonB: IPokemon) =>
     {
         const pokemonAName = pokemonA.name;
         const pokemonBName = pokemonB.name;
 
-        const response = await fetch(`/api/fight?pokemonA=${pokemonAName}&pokemonB=${pokemonBName}`, {method: 'POST'});
+        const response = await fetch(`/api/battle?pokemonA=${pokemonAName}&pokemonB=${pokemonBName}`, {method: 'POST'});
 
         const responseJson = await response.json();
 

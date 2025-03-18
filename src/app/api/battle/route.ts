@@ -12,7 +12,7 @@ export async function POST(request: Request)
 
         const apiKey = process.env.GEMINI_API_KEY;
 
-        const prompt = `who would win in a fight between ${pokemonA} and ${pokemonB}? Respond in the following form: {"id": this should be the number id of the winning pokemon and contained, "reason": this should be the reason behind the choice of the winning pokemon}. Provide ONLY the JSON object, with no additional text or markdown formatting. do not include anything before or after the json object"`;
+        const prompt = `who would win in a battle between ${pokemonA} and ${pokemonB}? Respond in the following form: {"id": this should be the number id of the winning pokemon and contained, "reason": this should be the reason behind the choice of the winning pokemon}. Provide ONLY the JSON object, with no additional text or markdown formatting. do not include anything before or after the json object"`;
 
         if (!apiKey) {
         return NextResponse.json({ error: 'Missing GOOGLE_API_KEY' }, { status: 500 });

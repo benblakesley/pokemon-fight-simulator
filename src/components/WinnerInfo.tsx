@@ -26,7 +26,7 @@ export function WinnerInfo({popoverText}: WinnerInfoProps)
     return (
         <>
             <Button aria-describedby={id} variant="contained" onClick={handleClick}>
-                How was the previous fight decided?
+                How was the previous battle decided?
             </Button>
             <Popover
                 id={id}
@@ -45,7 +45,7 @@ export function WinnerInfo({popoverText}: WinnerInfoProps)
                     paper: {sx: {maxWidth: {md: "50%"}}
                 }}}
             >
-             <Typography sx={{ p: 2 }}>{!!popoverText ?  popoverText : 'No Previous Fight'}</Typography>
+             <Typography sx={{ p: 2 }}>{!!popoverText ?  popoverText : 'No Previous Battle'}</Typography>
             </Popover>
         </>
     )

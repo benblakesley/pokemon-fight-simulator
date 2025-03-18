@@ -1,7 +1,7 @@
 import { combineReducers, configureStore } from '@reduxjs/toolkit';
 import progressReducer from './reducers/progressSlice';
 import playerReducer from './reducers/playerSlice';
-import fightReducer from './reducers/fightSlice';
+import battleReducer from './reducers/battleSlice';
 import modalReducer from './reducers/gameOverModalSlice';
 import storage from 'redux-persist/lib/storage';
 import { persistReducer, persistStore } from 'redux-persist';
@@ -17,7 +17,7 @@ const persistConfig = {
 const rootReducer = combineReducers({
   progress: progressReducer,
   player: playerReducer,
-  fight: fightReducer,
+  battle: battleReducer,
   modal: modalReducer,
 });
 

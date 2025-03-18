@@ -19,7 +19,7 @@ export function ClientPersistGate({ children }: ClientProviderProps)
                     justifyContent: "center",
                     flexDirection: "column",
                     alignItems: "center",
-                    backgroundImage: 'url(/fightArena.jpg)',
+                    backgroundImage: 'url(/battleArena.jpg)',
                     backgroundSize: 'cover',
                     backgroundPosition: 'center center',
                     backgroundRepeat: 'no-repeat',

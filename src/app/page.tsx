@@ -5,9 +5,9 @@ import { useAppDispatch, useAppSelector } from "@/state/hooks";
 import { setCurrentPokemon } from "@/state/reducers/progressSlice";
 import { Box } from "@mui/material";
 import { useEffect } from "react";
-import { FightArena } from "../fight/FightArena";
+import { BattleArena } from "../battle/BattleArena";
 
-export default function FightPage()
+export default function BattlePage()
 {
     const dispatch = useAppDispatch();
     const progressState = useAppSelector(state => state.progress)
@@ -19,7 +19,7 @@ export default function FightPage()
 
     useEffect(() => 
     {
-        const setInitFightData = async () =>
+        const setInitBattleData = async () =>
         {
             const [pokeA, pokeB] = await Promise.all([
                 pokeProxy.getRandomPokemon(),
@@ -31,13 +31,13 @@ export default function FightPage()
 
         if(currentScore === 0)
         {
-            setInitFightData();
+            setInitBattleData();
         }
     }, []);
 
     return(
         <Box>
-            {!!pokeA && !!pokeB && <FightArena pokemonA={pokeA} pokemonB={pokeB}/>}
+            {!!pokeA && !!pokeB && <BattleArena pokemonA={pokeA} pokemonB={pokeB}/>}
         </Box>
     )
 }

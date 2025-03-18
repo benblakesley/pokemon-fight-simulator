@@ -1,14 +1,14 @@
 'use client';
 
 import { IPokemon } from "@/models/IPokemon";
-import { FightStates } from "@/state/reducers/fightSlice";
+import { BattleStates } from "@/state/reducers/battleSlice";
 import { Box, Slide, SxProps, Theme } from "@mui/material";
 import { AnimationControls, motion, TargetAndTransition, VariantLabels } from "framer-motion";
 
-interface FightingPokemonProps
+interface BattlingPokemonProps
 {
     pokemon: IPokemon;
-    currentState: FightStates;
+    currentState: BattleStates;
     enterTime: number;
     animate?: AnimationTypeAndDuration
     img: string;
@@ -19,9 +19,9 @@ interface FightingPokemonProps
     onClick: () => void;
 }
 
-export const BaseFightingPokemonAnimations: Omit<Record<FightStates, AnimationTypeAndDuration>, FightStates.fighting> = 
+export const BaseBattlingPokemonAnimations: Omit<Record<BattleStates, AnimationTypeAndDuration>, BattleStates.battling> = 
 {
-    [FightStates.idle]: {animation: {}, duration: 0},
+    [BattleStates.idle]: {animation: {}, duration: 0},
 }
 
 export type AnimationType = boolean | AnimationControls | TargetAndTransition | VariantLabels | undefined;
@@ -32,7 +32,7 @@ export interface AnimationTypeAndDuration
     duration: number;
 }
 
-export function FightingPokemon({pokemon, enterTime, animate, img, customSx, direction, visible, size, onClick}: FightingPokemonProps)
+export function BattlingPokemon({pokemon, enterTime, animate, img, customSx, direction, visible, size, onClick}: BattlingPokemonProps)
 {
     const sx = customSx || { width: size};
 

@@ -3,27 +3,27 @@
 import { IPokemon } from "@/models/IPokemon";
 import { Box, Fade, Typography, useMediaQuery, useTheme } from "@mui/material";
 import { useEffect, useState } from "react";
-import { TopFightingPokemon } from "./TopFightingPokemon";
-import { BottomFightingPokemon } from "./BottomFightingPokemon";
+import { TopBattlingPokemon } from "./TopBattlingPokemon";
+import { BottomBattlingPokemon } from "./BottomBattlingPokemon";
 import { useAppDispatch, useAppSelector } from "@/state/hooks";
-import { FightStates, setFightState } from "@/state/reducers/fightSlice";
+import { BattleStates, setBattleState } from "@/state/reducers/battleSlice";
 import { setCurrentPokemon, setCurrentScore, setLastGameTotalScore, setSelectedPokemon, setWinnerReason } from "@/state/reducers/progressSlice";
 import { PokeProxy } from "@/app/api/PokeProxy";
 import { setHighScore } from "@/state/reducers/playerSlice";
 import { openModal } from "@/state/reducers/gameOverModalSlice";
-import { FightProxy } from "@/app/api/FightProxy";
+import { BattleProxy } from "@/app/api/BattleProxy";
 import { WinnerInfo } from "@/components/WinnerInfo";
 import { DecisionInfo } from "@/components/DecisionInfo";
 
-interface FightArenaProps
+interface BattleArenaProps
 {
     pokemonA: IPokemon;
     pokemonB: IPokemon;
 }
 
-export function FightArena({pokemonA, pokemonB}: FightArenaProps)
+export function BattleArena({pokemonA, pokemonB}: BattleArenaProps)
 {
-    const {fightState} = useAppSelector(state => state.fight)
+    const {battleState} = useAppSelector(state => state.battle)
     const dispatch = useAppDispatch();
     const progressState = useAppSelector(state => state.progress);
     const {currentScore, winnerReason} = progressState;
@@ -31,7 +31,7 @@ export function FightArena({pokemonA, pokemonB}: FightArenaProps)
     const [showButtons, setShowButtons] = useState<boolean>(false);
     const pokeProxy = PokeProxy.getInstance();
 
-    const [showFightingPokemon, setShowFightingPokemon] = useState<boolean>(true)
+    const [showBattlingPokemon, setshowBattlingPokemon] = useState<boolean>(true)
     
     const enterTime = 1500;
 
@@ -43,20 +43,20 @@ export function FightArena({pokemonA, pokemonB}: FightArenaProps)
         return () => clearTimeout(timer);
     }, []);
 
-    const changeFightState = (state: FightStates) =>
+    const changeBattleState = (state: BattleStates) =>
     {
-        dispatch(setFightState(state));
+        dispatch(setBattleState(state));
     };
 
     useEffect(() => {
-        if (fightState === FightStates.fighting) 
+        if (battleState === BattleStates.battling) 
         {
           const timeoutId = setTimeout(async () => {
-            changeFightState(FightStates.idle);
+            changeBattleState(BattleStates.idle);
 
             const handleWinner = async () => 
             {
-                const {id, reason} = await FightProxy.getInstance().getFightWinner(pokemonA, pokemonB);
+                const {id, reason} = await BattleProxy.getInstance().getBattleWinner(pokemonA, pokemonB);
 
                 const winner = await PokeProxy.getInstance().getPokemonById(id);
                 const won = progressState.selectedPokemon?.name === winner.name;
@@ -76,7 +76,7 @@ export function FightArena({pokemonA, pokemonB}: FightArenaProps)
                 dispatch(setCurrentScore( won ? currentScore + 1 : 0))
             }
 
-            const setFightData = async () =>
+            const setBattleData = async () =>
             {
                 const [pokeA, pokeB] = await Promise.all([
                     pokeProxy.getRandomPokemon(),
@@ -88,28 +88,28 @@ export function FightArena({pokemonA, pokemonB}: FightArenaProps)
 
             await handleWinner();
 
-            await setFightData();
+            await setBattleData();
 
-            setShowFightingPokemon(false);
-            setShowFightingPokemon(true);
+            setshowBattlingPokemon(false);
+            setshowBattlingPokemon(true);
             
           }, 2500);
 
           return () => clearTimeout(timeoutId);
         }
-      }, [fightState]);
+      }, [battleState]);
 
     const onPokemonSelected = (pokemonSelected: IPokemon) =>
     {
         dispatch(setSelectedPokemon(pokemonSelected));
 
-        changeFightState(FightStates.fighting);
+        changeBattleState(BattleStates.battling);
     }
 
     const theme = useTheme();
     const isSmallScreen = useMediaQuery(theme.breakpoints.down('sm'));
 
-    const fightArenaSize = isSmallScreen ? 300 : 500;
+    const BattleArenaSize = isSmallScreen ? 300 : 500;
 
     return(
         <Box sx={{
@@ -120,7 +120,7 @@ export function FightArena({pokemonA, pokemonB}: FightArenaProps)
             marginTop: "32px"
           }}
           >
-            <Fade in={showButtons && fightState === FightStates.idle} timeout={300}>
+            <Fade in={showButtons && battleState === BattleStates.idle} timeout={300}>
                 <Box sx={{
                     display: "flex",
                     flexDirection: "column",
@@ -142,14 +142,17 @@ export function FightArena({pokemonA, pokemonB}: FightArenaProps)
             <Box sx={{
                 display: "flex",
                 flexDirection: "column",
-                width: fightArenaSize,
-                height: fightArenaSize
+                width: BattleArenaSize,
+                height: BattleArenaSize
             }}>
-                <TopFightingPokemon onClick={() => onPokemonSelected(pokemonB)} pokemon={pokemonB} enterTime={enterTime} currentState={fightState} visible={showFightingPokemon} size={fightArenaSize/2}/>
-                <BottomFightingPokemon onClick={() => onPokemonSelected(pokemonA)} pokemon={pokemonA} enterTime={enterTime} currentState={fightState} visible={showFightingPokemon} size={fightArenaSize/2}/>
+                <TopBattlingPokemon onClick={() => onPokemonSelected(pokemonB)} pokemon={pokemonB} enterTime={enterTime} currentState={battleState} visible={showBattlingPokemon} size={BattleArenaSize/2}/>
+                <BottomBattlingPokemon onClick={() => onPokemonSelected(pokemonA)} pokemon={pokemonA} enterTime={enterTime} currentState={battleState} visible={showBattlingPokemon} size={BattleArenaSize/2}/>
             </Box>
-
-            <WinnerInfo popoverText={winnerReason}/>
+            <Fade in={showButtons && battleState === BattleStates.idle} timeout={300}>
+                <Box>
+                    <WinnerInfo popoverText={winnerReason}/>
+                </Box>
+            </Fade>
         </Box>
     )
 }

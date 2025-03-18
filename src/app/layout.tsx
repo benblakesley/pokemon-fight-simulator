@@ -30,7 +30,7 @@ export default function RootLayout({
             <GlobalStyles
               styles={{
                 body: {
-                  backgroundImage: "url('/fightArena.jpg')", // Change to your image path
+                  backgroundImage: "url('/battleArena.jpg')", // Change to your image path
                   backgroundSize: "cover",
                   backgroundPosition: "center",
                   backgroundRepeat: "no-repeat",
