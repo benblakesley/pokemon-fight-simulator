@@ -12,7 +12,7 @@ export const SoundToggleButton = () =>
 
     useEffect(() => {
         audioRef.current = new Audio("https://eta.vgmtreasurechest.com/soundtracks/pokemon-game-boy-pok-mon-sound-complete-set-play-cd/yzmctgipnq/1-15.%20Battle%20%28Vs.%20Trainer%29.mp3");
-        audioRef.current.loop = true; // Optional: set to false if you don't want looping
+        audioRef.current.loop = true;
         audioRef.current.volume = 1.0;
     }, []);
       
@@ -22,7 +22,6 @@ export const SoundToggleButton = () =>
     
         if (active) {
           audioRef.current.pause();
-          audioRef.current.currentTime = 0; // Reset to beginning if needed
         } else {
           audioRef.current.play();
         }
