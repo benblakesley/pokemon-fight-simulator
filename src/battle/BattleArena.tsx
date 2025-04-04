@@ -14,6 +14,7 @@ import { openModal } from "@/state/reducers/gameOverModalSlice";
 import { BattleProxy } from "@/app/api/BattleProxy";
 import { WinnerInfo } from "@/components/WinnerInfo";
 import { DecisionInfo } from "@/components/DecisionInfo";
+import { SoundToggleButton } from "@/components/SoundToggleButton";
 
 interface BattleArenaProps
 {
@@ -109,7 +110,7 @@ export function BattleArena({pokemonA, pokemonB}: BattleArenaProps)
     const theme = useTheme();
     const isSmallScreen = useMediaQuery(theme.breakpoints.down('sm'));
 
-    const BattleArenaSize = isSmallScreen ? 300 : 500;
+    const BattleArenaSize = isSmallScreen ? 300 : 400;
 
     return(
         <Box sx={{
@@ -124,8 +125,12 @@ export function BattleArena({pokemonA, pokemonB}: BattleArenaProps)
                 <Box sx={{
                     display: "flex",
                     flexDirection: "column",
-                    alignItems: "center"
+                    alignItems: "center",
+                    width: "100%"
                 }}>
+                    <Box sx={{display: "flex", width: "100%", justifyContent: "flex-end", mr: {xs: 2, md: 10}}}>
+                        <SoundToggleButton/>
+                    </Box>
                     <Typography sx={{color: "#FFFFFF", fontWeight: 800, fontSize: "2em"}}>
                         PICK YOUR WINNER!
                     </Typography>
@@ -143,7 +148,8 @@ export function BattleArena({pokemonA, pokemonB}: BattleArenaProps)
                 display: "flex",
                 flexDirection: "column",
                 width: BattleArenaSize,
-                height: BattleArenaSize
+                height: BattleArenaSize,
+                mb: 2
             }}>
                 <TopBattlingPokemon onClick={() => onPokemonSelected(pokemonB)} pokemon={pokemonB} enterTime={enterTime} currentState={battleState} visible={showBattlingPokemon} size={BattleArenaSize/2}/>
                 <BottomBattlingPokemon onClick={() => onPokemonSelected(pokemonA)} pokemon={pokemonA} enterTime={enterTime} currentState={battleState} visible={showBattlingPokemon} size={BattleArenaSize/2}/>
